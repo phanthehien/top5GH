@@ -93,7 +93,22 @@ const UserItem = (props) => {
 
 
 export default class Detail extends React.Component {
-  static navigationOptions = { title: 'Person' };
+
+  static navigationOptions = {
+    title: 'Person',
+    headerStyle: {
+      backgroundColor: 'black',
+    },
+    headerTitleStyle: {
+      color: 'white',
+    },
+    headerBackTitleStyle: {
+      color: 'white',
+    },
+    headerTintColor: 'white',
+
+  };
+
   state = { user: {} };
 
   componentWillMount() {

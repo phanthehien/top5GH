@@ -54,12 +54,20 @@ const NamedButton = (props) => {
 
 
 export default class HomeScreen extends React.Component {
-  static navigationOptions = { title: 'Home' };
+  static navigationOptions = {
+    title: 'Home',
+    headerBackTitle: 'Back',
+    headerStyle: {
+      backgroundColor: 'black',
+    },
+    headerTitleStyle: {
+      color: 'white',
+    },
+    headerBackTitleStyle: {
+      color: 'white',
+    },
+    headerTintColor: 'white',
 
-  static navigatorStyle = {
-    drawUnderNavBar: true,
-    navBarTranslucent: true,
-    navBarBackgroundColor: 'black'
   };
 
   state = { users: [] };
@@ -88,8 +96,6 @@ export default class HomeScreen extends React.Component {
 
   _onPress = (user) => {
     const { navigate } = this.props.navigation;
-
-    console.log('you pressed on ', user);
     const { login } = user;
 
     navigate('Profile', { login })
