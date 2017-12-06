@@ -23,16 +23,50 @@ const styles = StyleSheet.create({
   },
 
   userContainer: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    height: 60,
   },
 
   usersContainer: {
     marginVertical: 20,
     flex: 1,
-    backgroundColor: 0,
     justifyContent: 'flex-start',
     flexDirection: 'row',
     flexWrap: 'wrap'
+  },
+
+  contentContainer: {
+    flex: 4,
+    justifyContent: 'space-between'
+  },
+
+  image: {
+    borderRadius: 30,
+    width: 60,
+    height: 60
+  },
+
+  content: {
+    fontSize: 13,
+    marginLeft: 10,
+    color: 'grey'
+  },
+
+  name: {
+    fontSize: 15,
+    marginLeft: 10
+  },
+
+  line: {
+    height: 0.5,
+    backgroundColor: 'grey',
+    marginRight: 10,
+    marginLeft: 10,
   }
+
 });
 
 
@@ -40,12 +74,19 @@ const UserItem = (props) => {
   const { style, user } = props;
   const { name, avatar_url, location } = user;
   return (
+
     <View style={style.userContainer}>
-      <Image style={{width: 50, height: 50}}
+      <Image style={styles.image}
         source={{uri: avatar_url}}
       />
-      <Text style={style.button}>{name}</Text>
-      <Text style={style.button}>{location}</Text>
+      <View style={style.contentContainer}>
+        <View>
+          <Text style={styles.name}>{name}</Text>
+          <Text style={styles.content}>{location}</Text>
+        </View>
+        <View style={styles.line} />
+      </View>
+
     </View>
   );
 };
@@ -72,6 +113,8 @@ export default class Detail extends React.Component {
         return response.json()
       })
       .then(user => {
+        console.log('There is an user', user);
+
         this.setState({ user })
       })
       .catch(error => {
@@ -84,11 +127,9 @@ export default class Detail extends React.Component {
   };
 
   render() {
-    const user = this.state;
+    const { user } = this.state;
     return (
       <View style={styles.container}>
-        <Text style={styles.header}>Top 5 GitHub Users</Text>
-        <Text>Tap the username to see more information</Text>
         <View style={styles.usersContainer}>
           { this._renderUser(user) }
         </View>
