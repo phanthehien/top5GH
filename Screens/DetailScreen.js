@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
 
 
 const styles = StyleSheet.create({
@@ -18,18 +18,11 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    color: 'white',
-    fontSize: 20,
-    textAlign: 'center',
-    paddingVertical: 10,
-    borderRadius: 5,
-    paddingHorizontal: 20,
-    backgroundColor: 'blue',
-    marginRight: 5,
-    marginBottom: 5
+    color: 'black',
+    fontSize: 20
   },
 
-  buttonContainer: {
+  userContainer: {
   },
 
   usersContainer: {
@@ -43,12 +36,17 @@ const styles = StyleSheet.create({
 });
 
 
-const NamedButton = (props) => {
-  const { title, onPress, style } = props;
+const UserItem = (props) => {
+  const { style, user } = props;
+  const { name, avatar_url, location } = user;
   return (
-    <TouchableOpacity onPress={onPress} style={style.buttonContainer}>
-      <Text style={style.button}> {title}</Text>
-    </TouchableOpacity>
+    <View style={style.userContainer}>
+      <Image style={{width: 50, height: 50}}
+        source={{uri: avatar_url}}
+      />
+      <Text style={style.button}>{name}</Text>
+      <Text style={style.button}>{location}</Text>
+    </View>
   );
 };
 
@@ -81,22 +79,12 @@ export default class Detail extends React.Component {
       });
   };
 
-  _renderUser(user) {
-    return
-    (
-      <NamedButton
-        key={user.name}
-        style={styles}
-        title={user.name}
-      />
-    );
-  }
+  _renderUser = (user) => {
+    return (<UserItem user={user} style={styles} />);
+  };
 
   render() {
     const user = this.state;
-
-    console.log('There is a navigaiton', this.props);
-    console.log('There is a user', user);
     return (
       <View style={styles.container}>
         <Text style={styles.header}>Top 5 GitHub Users</Text>
